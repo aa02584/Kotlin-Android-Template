@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion(COMPILE_SDK_VERSION.toInteger())
@@ -8,7 +9,7 @@ android {
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0.0"
     }
@@ -42,11 +43,8 @@ android {
     }
 }
 
-def ankoVersion = "0.9"
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(":component")
 
     // Data Layer
     debugCompile project(path: ':data', configuration: "debug")
@@ -58,16 +56,28 @@ dependencies {
     compile "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
 
     // Reactive library
-    compile "io.reactivex:rxkotlin:0.60.0"
-    compile "io.reactivex:rxandroid:1.2.1"
+    compile "io.reactivex.rxjava2:rxkotlin:$RXKOTLIN_VERSION"
+    compile "io.reactivex.rxjava2:rxandroid:$RXANDROID_VERSION"
+    compile "com.trello.rxlifecycle2:rxlifecycle:$RXLIFECYCLE_VERSION"
+    compile "com.trello.rxlifecycle2:rxlifecycle-android:$RXLIFECYCLE_VERSION"
+    compile "com.trello.rxlifecycle2:rxlifecycle-components:$RXLIFECYCLE_VERSION"
+    compile "com.trello.rxlifecycle2:rxlifecycle-kotlin:$RXLIFECYCLE_VERSION"
 
     // DSL
-    compile "org.jetbrains.anko:anko-sdk15:$ankoVersion" // sdk19, sdk21, sdk23 are also available
-    compile "org.jetbrains.anko:anko-support-v4:$ankoVersion" // In case you need support-v4 bindings
-    compile "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion" // For appcompat-v7 bindings
+    compile "org.jetbrains.anko:anko-sdk15:$ANKO_VERSION" // sdk19, sdk21, sdk23 are also available
+    compile "org.jetbrains.anko:anko-support-v4:$ANKO_VERSION" // In case you need support-v4 bindings
+    compile "org.jetbrains.anko:anko-appcompat-v7:$ANKO_VERSION" // For appcompat-v7 bindings
 
     // Artwork
-    compile "com.squareup.picasso:picasso:2.5.2"
+    compile "com.squareup.picasso:picasso:$PICASSO_VERSION"
+
+    // Persist Instance State
+    compile "com.evernote:android-state:$ANDROID_STATE_VERSION"
+    kapt "com.evernote:android-state-processor:$ANDROID_STATE_VERSION"
+
+    // Tools
+    compile "com.github.nekocode:Meepo:$MEEPO_VERSION"
+    compile "com.github.nekocode:ItemPool:$ITEMPOOL_VERSION"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 }

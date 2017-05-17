@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion(COMPILE_SDK_VERSION.toInteger())
@@ -7,37 +8,32 @@ android {
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0.0"
+        targetSdkVersion 25
     }
 
     publishNonDefault true
 }
 
-def paperparcelVersion = "1.0.0"
-def retrofitVersion = "2.1.0"
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    testCompile "org.robolectric:robolectric:3.2"
+    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
 
     // Android support libraries
     compile "com.android.support:support-annotations:$SUPPORT_LIBS_VERSION"
 
     // Retrofit
-    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
 
     // Storage library
-    compile "io.paperdb:paperdb:2.0"
+    compile "io.paperdb:paperdb:$PAPERDB_VERSION"
 
     // Instance State
-    compile "com.github.grandstaish.paperparcel:paperparcel:$paperparcelVersion"
-    compile "com.github.grandstaish.paperparcel:paperparcel-kotlin:$paperparcelVersion"
-    kapt "com.github.grandstaish.paperparcel:compiler:$paperparcelVersion"
+    compile "nz.bradcampbell:paperparcel:$PAPERPARCEL_VERSION"
+    compile "nz.bradcampbell:paperparcel-kotlin:$PAPERPARCEL_VERSION"
+    kapt "nz.bradcampbell:paperparcel-compiler:$PAPERPARCEL_VERSION"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 }

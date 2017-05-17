@@ -15,7 +15,7 @@ except ImportError:
 
 def download_lastest_src():
     print 'Fetching the lastest version from github...'
-    r = requests.get('https://github.com/nekocode/kotgo/releases/latest', allow_redirects=False)
+    r = requests.get('https://github.com/nekocode/Kotlin-Android-Template/releases/latest', allow_redirects=False)
     lastest_tag = r.headers['Location'].split('/')[-1]
     zipfile_name = 'src-%s.zip' % lastest_tag
 
@@ -24,7 +24,7 @@ def download_lastest_src():
         return zipfile_name, lastest_tag
 
     print 'Downloading the lastest release [%s]...' % zipfile_name
-    url = 'https://github.com/nekocode/kotgo/archive/%s.zip' % lastest_tag
+    url = 'https://github.com/nekocode/Kotlin-Android-Template/archive/%s.zip' % lastest_tag
     r = requests.get(url)
     with open(zipfile_name, 'wb') as data:
         data.write(r.content)
@@ -146,7 +146,7 @@ class ProjectFactory:
         TextProcesser('build.gradle').rm_line_has_text('android-maven').finish()
 
         # settings.gradle
-        TextProcesser('settings.gradle').recreate("include ':app', ':data', ':component'").finish()
+        TextProcesser('settings.gradle').recreate("include ':app', ':data'").finish()
 
         # rm unnessary files
         os.remove('README.md')
@@ -155,41 +155,32 @@ class ProjectFactory:
             os.remove('project_creator.py')
 
         # =================
-        #     component
-        # =================
-        # build.gradle
-        TextProcesser('component/build.gradle') \
-            .rm_line_has_text("apply plugin: 'com.github.dcendents.android-maven'") \
-            .rm_line_has_text("group='com.github.nekocode'") \
-            .finish()
-
-        # =================
         #       app
         # =================
         # build.gradle
         TextProcesser('app/build.gradle') \
-            .replace_all_text('cn.nekocode.kotgo.sample', package_name) \
+            .replace_all_text('cn.nekocode.template', package_name) \
             .finish()
 
         # build.gradle
         TextProcesser('app/proguard-rules.pro') \
-            .replace_all_text('cn.nekocode.kotgo.sample', package_name) \
+            .replace_all_text('cn.nekocode.template', package_name) \
             .finish()
 
         # AndroidManifest.xml
         TextProcesser('app/src/main/AndroidManifest.xml') \
-            .replace_all_text('cn.nekocode.kotgo.sample', package_name) \
+            .replace_all_text('cn.nekocode.template', package_name) \
             .finish()
 
         # strings.xml
         TextProcesser('app/src/main/res/values/strings.xml') \
-            .replace_all_text('Kotgo', project_name) \
+            .replace_all_text('Kotlin-Android', project_name) \
             .finish()
 
         # move package
         package_dir_postfix = package_name.replace('.', '/')
         tmp_package_path = 'app/src/main/javaTmp/' + package_dir_postfix + '/'
-        old_package_path = 'app/src/main/java/cn/nekocode/kotgo/sample/'
+        old_package_path = 'app/src/main/java/cn/nekocode/template/'
         os.makedirs(tmp_package_path)
 
         for f in os.listdir(old_package_path):
@@ -209,7 +200,7 @@ class ProjectFactory:
                 elif p.endswith('.kt') or p.endswith('.java'):
                     TextProcesser(path + p) \
                         .remove_comment() \
-                        .replace_header('cn.nekocode.kotgo.sample', package_name) \
+                        .replace_header('cn.nekocode.template', package_name) \
                         .finish()
 
         process_all_src(new_package_path)
@@ -221,13 +212,13 @@ class ProjectFactory:
 
         # AndroidManifest.xml
         TextProcesser('data/src/main/AndroidManifest.xml') \
-            .replace_all_text('cn.nekocode.kotgo.sample.data', package_name) \
+            .replace_all_text('cn.nekocode.template.data', package_name) \
             .finish()
 
         # move package
         package_dir_postfix = package_name.replace('.', '/')
         tmp_package_path = 'data/src/main/javaTmp/' + package_dir_postfix + '/'
-        old_package_path = 'data/src/main/java/cn/nekocode/kotgo/sample/data/'
+        old_package_path = 'data/src/main/java/cn/nekocode/template/data/'
         os.makedirs(tmp_package_path)
 
         for f in os.listdir(old_package_path):
@@ -241,7 +232,7 @@ class ProjectFactory:
         # move test package
         package_dir_postfix = package_name.replace('.', '/')
         tmp_package_path = 'data/src/test/javaTmp/' + package_dir_postfix + '/'
-        old_package_path = 'data/src/test/java/cn/nekocode/kotgo/sample/data/'
+        old_package_path = 'data/src/test/java/cn/nekocode/template/data/'
         os.makedirs(tmp_package_path)
 
         for f in os.listdir(old_package_path):
@@ -261,7 +252,7 @@ class ProjectFactory:
                 elif p.endswith('.kt') or p.endswith('.java'):
                     TextProcesser(path + p) \
                         .remove_comment() \
-                        .replace_header('cn.nekocode.kotgo.sample.data', package_name) \
+                        .replace_header('cn.nekocode.template.data', package_name) \
                         .finish()
 
         process_all_src(new_package_path)

@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
 
@@ -12,38 +12,11 @@ buildscript {
     }
 }
 
-ext {
-    // Option to disable Pre-Dexing on CI env.
-    // You can add disablePreDex property to local.properties on CI env.
-    disablePreDex = project.hasProperty('disablePreDex') && disablePreDex.toBoolean()
-}
-
 allprojects {
     repositories {
         jcenter()
         maven {
             url "https://jitpack.io"
-        }
-    }
-}
-
-subprojects {
-    project.plugins.whenPluginAdded { plugin ->
-        if ('com.android.build.gradle.AppPlugin'.equals(plugin.class.name)
-                || 'com.android.build.gradle.LibraryPlugin'.equals(plugin.class.name)) {
-
-            // Enable or disable pre-dexing.
-            project.android.dexOptions.preDexLibraries = !rootProject.ext.disablePreDex
-
-            // Treat all Android Lint warning in all sub-projects as errors.
-            project.android.lintOptions.warningsAsErrors = true
-
-            project.android.testOptions.unitTests.all {
-                testLogging {
-                    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-                    exceptionFormat 'full'
-                }
-            }
         }
     }
 }
