@@ -12,13 +12,13 @@ python -c "$(curl -fsSL https://raw.githubusercontent.com/nekocode/Kotlin-Androi
 This python script depends on the [`requests`](http://docs.python-requests.org/en/master/user/install/) lib.
 
 ## Description
-This is an Android project template using [**Kotlin**](https://kotlinlang.org)/**MVP** architecture.
+This is an Android project template using [**Kotlin**](https://kotlinlang.org)/**MVP**.
 
 ![](art/layer.png)
 
 ### Package structure
 ```
-cn.nekocode.kotgo.sample
+cn.nekocode.template
 ├─ data
 │  ├─ DO
 │  └─ service
