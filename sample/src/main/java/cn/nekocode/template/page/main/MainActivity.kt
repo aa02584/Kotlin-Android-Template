@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity(), Contract.View {
     var presenter: Contract.Presenter? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

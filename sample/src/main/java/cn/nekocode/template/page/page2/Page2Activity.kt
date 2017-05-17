@@ -13,6 +13,7 @@ import org.jetbrains.anko.onClick
 class Page2Activity : BaseActivity(), Contract.View {
     var presenter: Contract.Presenter? = null
 
+
     override fun onCreatePresenter(presenterFactory: PresenterFactory) {
         presenter = presenterFactory.createOrGet(Page2Presenter::class.java)
     }

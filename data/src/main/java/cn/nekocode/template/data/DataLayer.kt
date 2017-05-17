@@ -16,30 +16,30 @@ import java.util.concurrent.TimeUnit
  * @author nekocode (nekocode.cn@gmail.com)
  */
 object DataLayer {
-    const val API_HOST_URL: String = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"
-    var context: Context? = null
-    var client: OkHttpClient? = null
-    var gson: Gson? = null
-    var retrofit: Retrofit? = null
+    const val HOST_GANK: String = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/"
+    var RETROFIT_GANK: Retrofit? = null
+    var CONTEXT: Context? = null
+    var CLIENT: OkHttpClient? = null
+    var GSON: Gson? = null
 
 
     fun init(context: Context) {
-        DataLayer.context = context.applicationContext
+        DataLayer.CONTEXT = context.applicationContext
 
-        client = OkHttpClient.Builder()
+        CLIENT = OkHttpClient.Builder()
                 .cache(Cache(File(context.cacheDir, "okhttp"), 10 * 1024 * 1024L))
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .build()
 
-        gson = GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create()
+        GSON = GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create()
 
-        retrofit = Retrofit.Builder()
-                .baseUrl(API_HOST_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+        RETROFIT_GANK = Retrofit.Builder()
+                .baseUrl(HOST_GANK)
+                .addConverterFactory(GsonConverterFactory.create(GSON))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(client)
+                .client(CLIENT)
                 .build()
 
         Paper.init(context)

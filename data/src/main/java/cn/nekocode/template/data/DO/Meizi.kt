@@ -3,11 +3,12 @@ package cn.nekocode.template.data.DO
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import paperparcel.PaperParcel
 
 /**
  * @author nekocode (nekocode.cn@gmail.com)
  */
-@paperparcel.PaperParcel
+@PaperParcel
 data class Meizi(
         @SerializedName("_id")
         override val id: String,

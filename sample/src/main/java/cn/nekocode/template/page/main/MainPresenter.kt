@@ -22,6 +22,7 @@ class MainPresenter : BasePresenter<Contract.View>(), Contract.Presenter {
     var meizis: ArrayList<Meizi>? = null
     var itemPool = ItemPool()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         StateSaver.restoreInstanceState(this, savedInstanceState)

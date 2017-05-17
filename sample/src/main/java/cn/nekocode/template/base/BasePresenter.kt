@@ -25,5 +25,6 @@ abstract class BasePresenter<V> : RxFragment(), IContext, UIRouter {
     abstract fun onViewCreated(view: V?, savedInstanceState: Bundle?)
 
     final override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

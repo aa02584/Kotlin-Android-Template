@@ -13,7 +13,7 @@ import retrofit2.http.Path
 internal interface GankApi {
 
     companion object {
-        val IMPL: GankApi = DataLayer.retrofit!!.create(GankApi::class.java)
+        val IMPL: GankApi = DataLayer.RETROFIT_GANK!!.create(GankApi::class.java)
     }
 
     @GET("{count}/{pageNum}")
