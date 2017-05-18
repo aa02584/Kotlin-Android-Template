@@ -33,6 +33,6 @@ cn.nekocode.template
 ```
 
 ### Sample
-Thanks to **[gank.io](http://gank.io/)**. The sample app use APIs provided by it.
+Thanks to **[gank.io](http://gank.io/)**. The sample app uses APIs provided by it.
 
 ![](art/screenshot.png)
